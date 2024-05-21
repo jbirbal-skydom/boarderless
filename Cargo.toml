@@ -1,0 +1,20 @@
+[package]
+name = "slint_custom_titlebar"
+version = "0.1.0"
+edition = "2021"
+build = "build.rs"
+
+# [[bin]]
+# name = "resize"
+# path = "src/resize.rs"
+
+[[bin]]
+name = "titlebar"
+path = "src/titlebar.rs"
+
+
+[dependencies]
+slint = "1.6"
+
+[build-dependencies]
+slint-build = "1.6.0"

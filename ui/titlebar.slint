@@ -1,0 +1,81 @@
+// import { Rectangle, Text, VerticalLayout, HorizontalLayout, TouchArea } from "std-widgets.slint";
+
+export component CustomWindow inherits Window {
+    no-frame: true;
+    min-width: 400px;
+    min-height: 200px;
+    callback close();
+    callback minimize();
+    callback move(length, length);
+    callback resize(length, length);
+
+    VerticalLayout {
+        Rectangle {  // Title bar
+            height: 32px;
+            background: #333;
+            border-radius: 30px;
+            Text {
+                color: #3eb86d; // Hex code for white
+                text: root.title;
+                horizontal-stretch: 2;
+            }
+            HorizontalLayout {
+                Rectangle {
+                    background: #dbdbdbeb;
+                    opacity : 0.2;
+                    horizontal-stretch: 2;
+                    TouchArea {
+                        moved => {
+                            root.move(self.mouse-x - self.pressed-x, self.mouse-y - self.pressed-y);
+                        }
+                    }
+                 }
+                // Custom button for minimize
+                Rectangle {
+                    min-width: 20px;
+                    // height: 32px;
+                    // width: 50px;
+                    background: #8f9133; // Default background
+                    TouchArea {
+                        clicked => { root.minimize() }
+                    }
+                    Text {
+                        text: "-";
+                        vertical-alignment: center ;
+                        horizontal-alignment: left;
+                        color: #ccc;
+                    }
+                }
+
+                // Custom button for close
+                Rectangle {
+                    min-width: 20px;
+                    // height: 32px;
+                    // width: 50px;
+                    background: #e61818; // Default background
+                    TouchArea {
+                        clicked => { root.close() }
+                    }
+                    Text {
+                        text: "X";
+                        vertical-alignment: center;
+                        horizontal-alignment: center;
+                        color: #ccc;
+                    }
+                }
+            }
+        }
+
+        Rectangle {  // Window content
+            min-height: 50px;  // Ensures a minimum height for visibility
+            //background: #f2f2f2; // Light grey background
+            border-radius: 10px;
+            Text {
+                text: "Window content goes here";
+                color: #000000; // Hex code for black
+                vertical-alignment: center;
+                horizontal-alignment: center;
+            }
+        }
+    }
+}

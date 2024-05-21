@@ -30,23 +30,23 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/jbirbal-skydom/slint_custom_titlebar">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+<h3 align="center">project_title</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+    project_description
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/jbirbal-skydom/slint_custom_titlebar"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://github.com/jbirbal-skydom/slint_custom_titlebar">View Demo</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
+    <a href="https://github.com/jbirbal-skydom/slint_custom_titlebar/issues">Report Bug</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
+    <a href="https://github.com/jbirbal-skydom/slint_custom_titlebar/issues">Request Feature</a>
   </p>
 </div>
 
@@ -85,33 +85,18 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
-
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
+Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `jbirbal-skydom`, `slint_custom_titlebar`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 ### Built With
-
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* [![Slint][slint-lang]][Slint-url]
+* [![JABCode][jabcode-badge]][JABCode-url]
+* [![Rust][rust-lang]][Rust-url]
+* [![C][c-lang]][C-url]
+* [![GCC][gcc-badge]][GCC-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -120,34 +105,212 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+# Cross-Compiling Rust Projects
 
-### Prerequisites
+This README provides instructions and examples for setting up your Rust development environment to cross-compile applications for Windows (`x86_64-pc-windows-gnu`) and macOS (`x86_64-apple-darwin`) from a Linux system.
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
+## Prerequisites
+
+Ensure you have `cargo` and `rustc` installed. You can install them via Rust's official installation method, [rustup](https://rustup.rs/).
+
+### Common Dependencies
+
+- Install build essentials and cross-compiling tools:
+  ```bash
+  sudo apt update
+  sudo apt install build-essential gcc g++ cmake
   ```
 
-### Installation
+## Cross-Compiling for Windows
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+### Setup
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+1. **Install MinGW-w64:**
+   ```bash
+   sudo apt install mingw-w64
    ```
-3. Install NPM packages
-   ```sh
-   npm install
+
+2. **Add the Windows GNU target:**
+   ```bash
+   rustup target add x86_64-pc-windows-gnu
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+
+3. **Configure Cargo for the Windows target:**
+   Create or edit the `.cargo/config.toml` file in your project directory or in your home directory (`~/.cargo/`) and add:
+   ```toml
+   [target.x86_64-pc-windows-gnu]
+   linker = "x86_64-w64-mingw32-gcc"
    ```
+
+### Build Command
+
+- To compile your project for Windows:
+  ```bash
+  cargo build --target=x86_64-pc-windows-gnu
+  ```
+
+## Cross-Compiling for macOS
+
+### Setup
+
+0.  ***Dependencies***
+    - for osxcross and clang/clang++:
+      ```sh
+      sudo apt-get install autoconf cmake clang llvm-dev uuid-dev libssl-dev libbz2-dev
+      ```
+      for gcc:
+      ```sh
+      sudo apt-get install gcc g++ zlib1g-dev libmpc-dev libmpfr-dev libgmp-dev
+      ```
+      ```sh
+      sudo apt-get install libgmp-dev libmpfr-dev libmpc-dev
+      ```
+
+
+
+    - XAR
+
+        **Installing xar on Various Linux Distributions**
+
+        - Clone the repository:
+          ```sh
+          git clone https://github.com/mozilla/xar
+          cd xar
+          ```
+        - Install build dependencies:
+
+          For most distributions, you will need `autoconf`, `automake`, `libtool`, and `make`. Ensure these are installed using your package manager.
+        - Build:
+          ```sh
+          ./autogen.sh
+          ./configure
+          make
+          sudo make install
+          ```
+
+    - clang
+
+        **Installing xar on Various Linux Distributions**
+
+        - Clone the repository:
+          ```sh
+          sudo apt install clang build-essential xz-utils libxml2-dev libssl-dev libbz2-dev zlib1g-dev
+          ```
+        - Install build dependencies:
+
+          For most distributions, you will need `autoconf`, `automake`, `libtool`, and `make`. Ensure these are installed using your package manager.
+        - Build:
+          ```sh
+          ./autogen.sh
+          ./configure
+          make
+          sudo make install
+          ```
+
+
+
+1. **Install osxcross:**
+   - Clone the osxcross repository:
+     ```bash
+     git clone https://github.com/tpoechtrager/osxcross.git
+     cd osxcross
+     ```
+   - Download the macOS SDK (as per Apple’s software license agreement) and place it in the `tarballs` directory. ***(phracker SDK is known to be broken)***
+      - Phacker
+          ```sh
+          cd ../
+          git clone https://github.com/phracker/MacOSX-SDKs
+          cd MacOSX-SDKs
+          ```
+
+          ```sh
+          tar cJvf ../osxcross/tarballs/MacOSX10.14.sdk.tar.xz MacOSX10.14.sdk/
+          ```
+      - Docker
+        ```sh
+        wget https://s3.dockerproject.org/darwin/v2/MacOSX10.11.sdk.tar.xz
+        ```
+      - alex
+        ```sh
+        git clone https://github.com/alexey-lysiuk/macos-sdk/releases
+        ```
+      - joseluisq (best)
+       ```sh
+       git clone https://github.com/joseluisq/macosx-sdks/
+       ```
+
+
+
+
+   - Build osxcross:
+     ```bash
+     cd ../osxcross
+     ```
+      - Preperation for only building local ABI and ***build the required CLang library***
+      ```sh
+      sudo sed -i -e 's|-march=native||g' build_clang.sh build.sh wrapper/build_wrapper.sh
+      sudo ./build_clang.sh
+      ```
+
+      - Building
+      ```sh
+      sudo SDK_VERSION=10.13 OSX_VERSION_MIN=10.12  ./build.sh
+      ```
+
+      - GCC
+      ```sh
+      sudo ./build_gcc.sh
+      ```
+
+        - Clean
+      ```sh
+        sudo ./cleanup.sh
+      ```
+
+2. **Add the macOS target to rustup:**
+   ```bash
+   rustup target add x86_64-apple-darwin
+   ```
+
+3. **Configure Cargo for the macOS target:**
+   Edit or create the `.cargo/config.toml` file and add:
+   ```toml
+   [target.x86_64-apple-darwin]
+   linker = "x86_64-apple-darwin15-gcc"
+   # ar = "x86_64-apple-darwin15-ar"
+   ```
+
+   Replace `osxcross path` with the actual path to your osxcross installation.
+
+4. **Add to path**
+
+    ```sh
+    sudo mkdir -p /usr/local/osx-ndk-x86
+    sudo cp -r target/* /usr/local/osx-ndk-x86
+    export PATH=/usr/local/osx-ndk-x86/bin:$PATH
+    export PKG_CONFIG_ALLOW_CROSS=1
+    export MACOSX_DEPLOYMENT_TARGET=10.14
+    ```
+
+### Build Command
+
+- To compile your project for macOS:
+  ```bash
+  cargo build --target=x86_64-apple-darwin
+  ```
+
+## Notes
+
+- Ensure all paths and configurations are correctly set according to your system and installed directories.
+- Test your binaries in the target environments to ensure compatibility.
+- Review and comply with all applicable licensing agreements when using proprietary SDKs or tools.
+
+
+
+
+
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -167,15 +330,12 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
+- [ ] Feature 1
+- [ ] Feature 2
+- [ ] Feature 3
+    - [ ] Nested Feature
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/jbirbal-skydom/slint_custom_titlebar/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -202,7 +362,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the GPL License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -211,9 +371,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/jbirbal-skydom/slint_custom_titlebar](https://github.com/jbirbal-skydom/slint_custom_titlebar)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -222,16 +382,12 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
+* [Building OSXcross for Rust](https://github.com/etrombly/gtk_osx_cross/blob/master/README.md)
+* [OSXcross](https://github.com/tpoechtrager/osxcross)
+* [Slint](https://github.com/slint-ui/slint)
+* [Jabcode](https://jabcode.org/)
+* []()
 
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -239,32 +395,27 @@ Use this space to list resources you find helpful and would like to give credit 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/jbirbal-skydom/slint_custom_titlebar.svg?style=for-the-badge
+[contributors-url]: https://github.com/jbirbal-skydom/slint_custom_titlebar/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/jbirbal-skydom/slint_custom_titlebar.svg?style=for-the-badge
+[forks-url]: https://github.com/jbirbal-skydom/slint_custom_titlebar/network/members
+[stars-shield]: https://img.shields.io/github/stars/jbirbal-skydom/slint_custom_titlebar.svg?style=for-the-badge
+[stars-url]: https://github.com/jbirbal-skydom/slint_custom_titlebar/stargazers
+[issues-shield]: https://img.shields.io/github/issues/jbirbal-skydom/slint_custom_titlebar.svg?style=for-the-badge
+[issues-url]: https://github.com/jbirbal-skydom/slint_custom_titlebar/issues
+[license-shield]: https://img.shields.io/github/license/jbirbal-skydom/slint_custom_titlebar.svg?style=for-the-badge
+[license-url]: https://github.com/jbirbal-skydom/slint_custom_titlebar/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
+[linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
+[rust-lang]: https://img.shields.io/badge/Rust-f74c00?style=for-the-badge&logo=rust&logoColor=white
+[Rust-url]: https://www.rust-lang.org/
+[c-lang]: https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white
+[C-url]: "https://en.wikipedia.org/wiki/C_(programming_language)"
+[slint-lang]: https://img.shields.io/badge/Slint-7F52FF?style=for-the-badge&logo=slint&logoColor=white
+[Slint-url]: https://slint-ui.com/
+[jabcode-badge]: https://img.shields.io/badge/JABCode-00eded?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDI1IDI1IiB3aWR0aD0iMjUiIGhlaWdodD0iMjUiPgoJPHRpdGxlPmphYmNvZGVfYmFkZ2U8L3RpdGxlPgoJPHN0eWxlPgoJCS5zMCB7IGZpbGw6ICNmZmZmZmYgfSAKCTwvc3R5bGU+Cgk8cGF0aCBpZD0iUGF0aCAwIiBjbGFzcz0iczAiIGQ9Im0wIDE1di0xNWgxNXY1aC0xMHYxMHoiLz4KCTxwYXRoIGlkPSJQYXRoIDAiIGNsYXNzPSJzMCIgZD0ibTYgMTV2LTloOXYzaC02djZ6Ii8+Cgk8cGF0aCBpZD0iUGF0aCAwIiBjbGFzcz0iczAiIGQ9Im0xMCAxNXYtNWg1djV6Ii8+Cgk8cGF0aCBpZD0iUGF0aCAwIiBjbGFzcz0iczAiIGQ9Im0xMCAxNmg2di02aDN2OWgtOXoiLz4KCTxwYXRoIGlkPSJQYXRoIDAiIGNsYXNzPSJzMCIgZD0ibTEwIDIwaDEwdi0xMGg1djE1aC0xNXoiLz4KPC9zdmc+
+[JABCode-url]: https://jabcode.org
+[gcc-badge]: https://img.shields.io/badge/GCC-4E9A06?style=for-the-badge&logo=gnu&logoColor=white
+[GCC-url]: https://gcc.gnu.org/
+

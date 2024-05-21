@@ -1,0 +1,149 @@
+export component ResizableWindow inherits Window {
+    no-frame: true;
+    // width: 400px;
+    // height: 300px;
+    min-width: 200px;
+    min-height: 150px;
+    
+    callback resize();
+    
+    // Top resize handle
+    TouchArea {
+    moved => {
+    if (self.pressed) {
+    root.height = max(root.min-height, root.height - (self.mouse-y - self.pressed-y));
+    root.y += self.mouse-y - self.pressed-y;
+    root.resize();
+    }
+    }
+    mouse-cursor: ns-resize;
+    width: parent.width;
+    height: 50px;
+    y: 0;
+    }
+    
+    // Bottom resize handle
+    TouchArea {
+    moved => {
+    if (self.pressed) {
+    root.height = max(root.min-height, root.height + self.mouse-y - self.pressed-y);
+    root.resize();
+    }
+    }
+    mouse-cursor: ns-resize;
+    width: parent.width;
+    height: 50px;
+    y: parent.height - self.height;
+    }
+    
+    // Left resize handle
+    TouchArea {
+    moved => {
+    if (self.pressed) {
+    root.width = max(root.min-width, root.width - (self.mouse-x - self.pressed-x));
+    root.x += self.mouse-x - self.pressed-x;
+    root.resize();
+    }
+    }
+    mouse-cursor: ew-resize;
+    width: 50px;
+    height: parent.height;
+    x: 0;
+    }
+    
+    // Right resize handle
+    TouchArea {
+    moved => {
+    if (self.pressed) {
+    root.width = max(root.min-width, root.width + self.mouse-x - self.pressed-x);
+    root.resize();
+    }
+    }
+    mouse-cursor: ew-resize;
+    width: 50px;
+    height: parent.height;
+    x: parent.width - self.width;
+    }
+    
+    // Top-left resize handle
+    TouchArea {
+    moved => {
+    if (self.pressed) {
+    root.width = max(root.min-width, root.width - (self.mouse-x - self.pressed-x));
+    root.height = max(root.min-height, root.height - (self.mouse-y - self.pressed-y));
+    root.x += self.mouse-x - self.pressed-x;
+    root.y += self.mouse-y - self.pressed-y;
+    root.resize();
+    }
+    }
+    mouse-cursor: nwse-resize;
+    width: 50px;
+    height: 50px;
+    x: 0;
+    y: 0;
+    }
+    
+    // Top-right resize handle
+    TouchArea {
+    moved => {
+    if (self.pressed) {
+    root.width = max(root.min-width, root.width + self.mouse-x - self.pressed-x);
+    root.height = max(root.min-height, root.height - (self.mouse-y - self.pressed-y));
+    root.y += self.mouse-y - self.pressed-y;
+    root.resize();
+    }
+    }
+    mouse-cursor: nesw-resize;
+    width: 50px;
+    height: 50px;
+    x: parent.width - self.width;
+    y: 0;
+    }
+    
+    // Bottom-left resize handle
+    TouchArea {
+    moved => {
+    if (self.pressed) {
+    root.width = max(root.min-width, root.width - (self.mouse-x - self.pressed-x));
+    root.height = max(root.min-height, root.height + self.mouse-y - self.pressed-y);
+    root.x += self.mouse-x - self.pressed-x;
+    root.resize();
+    }
+    }
+    mouse-cursor: nesw-resize;
+    width: 50px;
+    height: 50px;
+    x: 0;
+    y: parent.height - self.height;
+    }
+    
+    // Bottom-right resize handle
+    TouchArea {
+    moved => {
+    if (self.pressed) {
+    root.width = max(root.min-width, root.width + self.mouse-x - self.pressed-x);
+    root.height = max(root.min-height, root.height + self.mouse-y - self.pressed-y);
+    root.resize();
+    }
+    }
+    mouse-cursor: nwse-resize;
+    width: 50px;
+    height: 50px;
+    x: parent.width - self.width;
+    y: parent.height - self.height;
+    }
+    
+    Rectangle {
+    background: #632c2c;
+    border-width: 1px;
+    border-color: #c22828;
+    
+    // Add your content here
+    Text {
+    text: "Resizable Window";
+    font-size: 18px;
+    horizontal-alignment: center;
+    vertical-alignment: center;
+    }
+    }
+    }
