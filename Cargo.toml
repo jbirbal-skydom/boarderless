@@ -4,17 +4,21 @@ version = "0.1.0"
 edition = "2021"
 build = "build.rs"
 
-# [[bin]]
-# name = "resize"
-# path = "src/resize.rs"
+
 
 [[bin]]
 name = "titlebar"
 path = "src/titlebar.rs"
 
+[[bin]]
+name = "resize"
+path = "src/resize.rs"
 
 [dependencies]
 slint = "1.6"
+i-slint-backend-winit = "=1.6.0"
+winit = "0.30"
+lazy_static = "1.4.0"
 
 [build-dependencies]
 slint-build = "1.6.0"

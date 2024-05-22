@@ -142,6 +142,15 @@ Ensure you have `cargo` and `rustc` installed. You can install them via Rust's o
    linker = "x86_64-w64-mingw32-gcc"
    ```
 
+- note: **Console vs GUI app:**
+  - In windows the typical app is console so disable it you need to all a line in the `.cargo/config.toml` 
+
+    ```rs
+    [target.x86_64-pc-windows-gnu]
+    rustflags = ["-C", "link-args=-Wl,--subsystem,windows"]
+    ```
+
+
 ### Build Command
 
 - To compile your project for Windows:
@@ -299,11 +308,52 @@ Ensure you have `cargo` and `rustc` installed. You can install them via Rust's o
   cargo build --target=x86_64-apple-darwin
   ```
 
+
+
+# Multi-binary App
+
+- You can only invoke `slint::include_modules!();` on the last `*.rs` in the build (`build.rs`). [compile multiple slint files]
+
+`build.rs`
+```rs
+fn main() {
+    slint_build::compile("ui/resize.slint").unwrap();
+    slint_build::compile("ui/appwindow.slint").unwrap();
+    slint_build::compile("ui/titlebar.slint").unwrap();
+}
+```
+`appwindow.rs`
+```rs
+slint::slint!(import { AppWindow } from "./ui/AppWindow.slint";);
+
+fn main() -> Result<(), slint::PlatformError> {
+}
+```
+- note: 
+  - you can add the macro at the end too and it will still work: 
+  ```rs
+  fn main() -> Result<(), slint::PlatformError> {
+    let ui = AppWindow::new()?;
+    ui.run()
+  }
+  slint::slint!(import { AppWindow } from "./ui/AppWindow.slint";);
+  ```
+
+
+`titlebar.rs`
+```rs
+slint::include_modules!();
+fn main() -> Result<(), slint::PlatformError> {
+}
+```
+
+
 ## Notes
 
 - Ensure all paths and configurations are correctly set according to your system and installed directories.
 - Test your binaries in the target environments to ensure compatibility.
 - Review and comply with all applicable licensing agreements when using proprietary SDKs or tools.
+
 
 
 
@@ -382,11 +432,15 @@ Project Link: [https://github.com/jbirbal-skydom/slint_custom_titlebar](https://
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* [Building OSXcross for Rust](https://github.com/etrombly/gtk_osx_cross/blob/master/README.md)
-* [OSXcross](https://github.com/tpoechtrager/osxcross)
-* [Slint](https://github.com/slint-ui/slint)
-* [Jabcode](https://jabcode.org/)
-* []()
+* [Building OSXcross for Rust]
+* [OSXcross]
+* [Slint]
+* [Jabcode]
+* [winit - solution]
+* [Tomotroid]
+* [draggable]
+* [compile multiple slint files] 
+  
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -419,3 +473,14 @@ Project Link: [https://github.com/jbirbal-skydom/slint_custom_titlebar](https://
 [gcc-badge]: https://img.shields.io/badge/GCC-4E9A06?style=for-the-badge&logo=gnu&logoColor=white
 [GCC-url]: https://gcc.gnu.org/
 
+
+
+<!-- LINKS -->
+[compile multiple slint files]:(https://github.com/slint-ui/slint/issues/3217)
+[Building OSXcross for Rust]:(https://github.com/etrombly/gtk_osx_cross/blob/master/README.md)
+[OSXcross]:(https://github.com/tpoechtrager/osxcross)
+[Slint]:(https://github.com/slint-ui/slint)
+[Jabcode]:(https://jabcode.org/)
+[winit - solution]:(https://github.com/slint-ui/slint/discussions/3355)
+[Tomotroid]:(https://github.com/Vadoola/Tomotroid)
+[draggable]:(https://github.com/slint-ui/slint/pull/2558)

@@ -1,12 +1,12 @@
 // import { Rectangle, Text, VerticalLayout, HorizontalLayout, TouchArea } from "std-widgets.slint";
 
-export component CustomWindow inherits Window {
+export component CustomTitlebar inherits Window {
     no-frame: true;
     min-width: 400px;
     min-height: 200px;
     callback close();
     callback minimize();
-    callback move(length, length);
+    callback move();
     callback resize(length, length);
 
     VerticalLayout {
@@ -26,7 +26,7 @@ export component CustomWindow inherits Window {
                     horizontal-stretch: 2;
                     TouchArea {
                         moved => {
-                            root.move(self.mouse-x - self.pressed-x, self.mouse-y - self.pressed-y);
+                            root.move();
                         }
                     }
                  }
